@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesham Mosad Sayed - Full Stack .NET Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0066ff;
+            --accent: #ff00ff;
+            --dark: #0a0e27;
+            --darker: #050818;
+            --light: #ffffff;
+            --gray: #8892b0;
+            --code-bg: #112240;
+        }
+        
+        /* Light Mode Colors */
+        body.light-mode {
+            --darker: #f5f5f5;
+            --dark: #ffffff;
+            --light: #1a1a1a;
+            --gray: #4a5568;
+            --code-bg: #e8eaf6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+        
+        /* Clean Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(180deg, var(--darker) 0%, var(--dark) 50%, var(--darker) 100%);
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(10, 14, 39, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        body.light-mode nav {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+        
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .control-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .control-btn:hover span {
+            filter: grayscale(1) brightness(0);
+        }
+        
+        nav a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .hero-photo {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 5px solid var(--primary);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+            overflow: hidden;
+            position: relative;
+            background: var(--code-bg);
+        }
+        
+        .hero-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: var(--primary);
+        }
+        
+        .hero-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+            line-height: 1.2;
+        }
+        
+        .hero-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.3rem, 2.5vw, 2rem);
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            font-style: italic;
+        }
+        
+        .hero-text p {
+            color: var(--gray);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--primary);
+            background: var(--primary);
+            color: var(--dark);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--light);
+            color: var(--light);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--light);
+            color: var(--dark);
+            border-color: var(--light);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative;
+            color: var(--light);
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--primary);
+            margin: 1.5rem auto 3rem;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        .about-text p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .stat-box {
+            background: var(--code-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            color: var(--primary);
+            font-weight: 900;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-category {
+            background: var(--code-bg);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
+        }
+        
+        .skill-category h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            color: var(--gray);
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .skill-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+        
+        .project-card {
+            background: var(--code-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.3);
+        }
+        
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .project-header {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 255, 0.1));
+            padding: 0;
+            text-align: center;
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .project-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover .project-header img {
+            transform: scale(1.1);
+        }
+        
+        .project-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            background: rgba(10, 14, 39, 0.8);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--primary);
+        }
+        
+        .project-content {
+            padding: 2rem;
+        }
+        
+        .project-content h3 {
+            color: var(--light);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+        
+        .project-content p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .project-link:hover {
+            color: var(--accent);
+        }
+        
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: var(--code-bg);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
+        }
+        
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-card h3 {
+            color: var(--light);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+        
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+        
+        /* Education & Achievements */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--accent));
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--code-bg);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 2rem;
+            width: 15px;
+            height: 15px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid var(--dark);
+        }
+        
+        .timeline-item h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+        
+        .timeline-item .date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .timeline-item p {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+        
+        /* Contact Section */
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-item {
+            background: var(--code-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+        
+        .contact-item i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .contact-item h3 {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+        
+        .contact-item a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-item a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--darker);
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        footer p {
+            color: var(--gray);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-photo {
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 4rem 5%;
+            }
+            
+            .timeline {
+                padding-left: 2rem;
+            }
+            
+            .projects-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+        
+        /* RTL Support */
+        body.rtl {
+            direction: rtl;
+        }
+        
+        body.rtl nav ul {
+            direction: rtl;
+        }
+        
+        body.rtl .hero-content {
+            direction: rtl;
+        }
+        
+        body.rtl .about-content {
+            direction: rtl;
+        }
+        
+        body.rtl .skill-list li {
+            padding-left: 0;
+            padding-right: 1.5rem;
+        }
+        
+        body.rtl .skill-list li::before {
+            left: auto;
+            right: 0;
+        }
+        
+        body.rtl .timeline {
+            padding-left: 0;
+            padding-right: 3rem;
+        }
+        
+        body.rtl .timeline::before {
+            left: auto;
+            right: 0;
+        }
+        
+        body.rtl .timeline-item::before {
+            left: auto;
+            right: -3.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home" data-en="Home" data-ar="الرئيسية">Home</a></li>
+            <li><a href="#about" data-en="About" data-ar="عني">About</a></li>
+            <li><a href="#skills" data-en="Skills" data-ar="المهارات">Skills</a></li>
+            <li><a href="#projects" data-en="Projects" data-ar="المشاريع">Projects</a></li>
+            <li><a href="#services" data-en="Services" data-ar="الخدمات">Services</a></li>
+            <li><a href="#education" data-en="Education" data-ar="التعليم">Education</a></li>
+            <li><a href="#contact" data-en="Contact" data-ar="تواصل">Contact</a></li>
+        </ul>
+        <div class="nav-controls">
+            <button id="langToggle" class="control-btn" title="تبديل اللغة / Switch Language">
+                <span id="langIcon">🌐</span>
+            </button>
+            <button id="themeToggle" class="control-btn" title="الوضع الليلي / Dark Mode">
+                <span id="themeIcon">🌙</span>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-photo">
+                <img src="hesham-photo.jpeg" alt="Hesham Mosad Sayed">
+            </div>
+            <div class="hero-text">
+                <h1>HESHAM MOSAD SAYED</h1>
+                <h2>Full Stack .NET Developer</h2>
+                <p>Designing, developing, and maintaining robust backend systems using C#, ASP.NET Core, and SQL Server. Passionate about building scalable RESTful APIs and delivering high-quality software solutions.</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn">View Projects</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Hello! I'm Hesham</h3>
+                <p>I'm a backend .NET Developer with extensive experience in designing, developing, and maintaining robust backend systems. I specialize in building scalable RESTful APIs, integrating third-party services, and optimizing database performance.</p>
+                <p>With a strong foundation in C#, ASP.NET Core, and SQL Server, I collaborate effectively with cross-functional teams to deliver high-quality software solutions on time. I'm committed to implementing best practices including clean architecture, SOLID principles, and comprehensive unit testing.</p>
+                <p>As a competitive programmer with ICPC experience, I bring strong problem-solving skills and algorithmic thinking to every project. I'm passionate about continuous learning and staying updated with emerging technologies in the .NET ecosystem.</p>
+            </div>
+            <div class="about-stats">
+                <div class="stat-box">
+                    <div class="stat-number">3+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Technologies Mastered</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Backend Development</h3>
+                <ul class="skill-list">
+                    <li>C# & .NET Framework</li>
+                    <li>ASP.NET Core</li>
+                    <li>RESTful API Design</li>
+                    <li>Entity Framework Core</li>
+                    <li>Clean Architecture</li>
+                    <li>SOLID Principles</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Frontend Technologies</h3>
+                <ul class="skill-list">
+                    <li>HTML5</li>
+                    <li>CSS3</li>
+                    <li>JavaScript (ES6+)</li>
+                    <li>Responsive Design</li>
+                    <li>Bootstrap</li>
+                    <li>jQuery</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Database & Tools</h3>
+                <ul class="skill-list">
+                    <li>SQL Server</li>
+                    <li>Database Design</li>
+                    <li>Query Optimization</li>
+                    <li>Git & GitHub</li>
+                    <li>Visual Studio</li>
+                    <li>VS Code</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Programming Languages</h3>
+                <ul class="skill-list">
+                    <li>C#</li>
+                    <li>C++</li>
+                    <li>C</li>
+                    <li>Java</li>
+                    <li>SQL</li>
+                    <li>JavaScript</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Soft Skills</h3>
+                <ul class="skill-list">
+                    <li>Problem Solving</li>
+                    <li>Team Collaboration</li>
+                    <li>Communication</li>
+                    <li>Leadership</li>
+                    <li>Time Management</li>
+                    <li>Agile Methodology</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Competitive Programming</h3>
+                <ul class="skill-list">
+                    <li>ICPC Participant</li>
+                    <li>Algorithm Design</li>
+                    <li>Data Structures</li>
+                    <li>Problem Analysis</li>
+                    <li>Optimization Techniques</li>
+                    <li>Contest Strategy</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title" data-en="Featured Projects" data-ar="المشاريع المميزة">Featured Projects</h2>
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <img src="https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=400&fit=crop" alt="E-Commerce Platform">
+                    <div class="project-icon">🚀</div>
+                </div>
+                <div class="project-content">
+                    <h3 data-en="E-Commerce Platform" data-ar="منصة التجارة الإلكترونية">E-Commerce Platform</h3>
+                    <p data-en="Full-stack e-commerce solution with ASP.NET Core backend, implementing clean architecture and RESTful APIs for product management, user authentication, and payment processing." data-ar="حل تجارة إلكترونية متكامل مع ASP.NET Core، يطبق معمارية نظيفة وواجهات برمجية RESTful لإدارة المنتجات والمصادقة ومعالجة الدفع.">Full-stack e-commerce solution with ASP.NET Core backend, implementing clean architecture and RESTful APIs for product management, user authentication, and payment processing.</p>
+                    <div class="project-tags">
+                        <span class="tag">ASP.NET Core</span>
+                        <span class="tag">SQL Server</span>
+                        <span class="tag">REST API</span>
+                        <span class="tag">Entity Framework</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Demo →</a>
+                        <a href="#" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=400&fit=crop" alt="Task Management System">
+                    <div class="project-icon">📊</div>
+                </div>
+                <div class="project-content">
+                    <h3 data-en="Task Management System" data-ar="نظام إدارة المهام">Task Management System</h3>
+                    <p data-en="Comprehensive project management tool with role-based access control, real-time notifications, and advanced reporting features built with .NET technologies." data-ar="أداة إدارة مشاريع شاملة مع التحكم في الوصول المبني على الأدوار، والإشعارات الفورية، وميزات التقارير المتقدمة.">Comprehensive project management tool with role-based access control, real-time notifications, and advanced reporting features built with .NET technologies.</p>
+                    <div class="project-tags">
+                        <span class="tag">C#</span>
+                        <span class="tag">ASP.NET MVC</span>
+                        <span class="tag">SignalR</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Demo →</a>
+                        <a href="#" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=400&fit=crop" alt="Authentication API">
+                    <div class="project-icon">🔐</div>
+                </div>
+                <div class="project-content">
+                    <h3 data-en="Authentication API" data-ar="واجهة برمجية للمصادقة">Authentication API</h3>
+                    <p data-en="Secure authentication and authorization service implementing JWT tokens, refresh tokens, and OAuth integration following industry best practices." data-ar="خدمة مصادقة وتفويض آمنة تطبق رموز JWT، ورموز التحديث، وتكامل OAuth وفقًا لأفضل الممارسات.">Secure authentication and authorization service implementing JWT tokens, refresh tokens, and OAuth integration following industry best practices.</p>
+                    <div class="project-tags">
+                        <span class="tag">.NET Core</span>
+                        <span class="tag">JWT</span>
+                        <span class="tag">OAuth 2.0</span>
+                        <span class="tag">Security</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Demo →</a>
+                        <a href="#" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 4 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop" alt="Algorithm Visualizer">
+                    <div class="project-icon">💻</div>
+                </div>
+                <div class="project-content">
+                    <h3 data-en="Algorithm Visualizer" data-ar="محاكي الخوارزميات">Algorithm Visualizer</h3>
+                    <p data-en="Interactive web application for visualizing sorting and graph algorithms, developed using competitive programming expertise combined with modern web technologies." data-ar="تطبيق ويب تفاعلي لتصور خوارزميات الترتيب والرسوم البيانية، تم تطويره باستخدام خبرة البرمجة التنافسية.">Interactive web application for visualizing sorting and graph algorithms, developed using competitive programming expertise combined with modern web technologies.</p>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">HTML5</span>
+                        <span class="tag">CSS3</span>
+                        <span class="tag">Algorithms</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Demo →</a>
+                        <a href="#" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 5 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=400&fit=crop" alt="Healthcare Management">
+                    <div class="project-icon">🏥</div>
+                </div>
+                <div class="project-content">
+                    <h3 data-en="Healthcare Management System" data-ar="نظام إدارة الرعاية الصحية">Healthcare Management System</h3>
+                    <p data-en="Comprehensive healthcare solution for patient management, appointment scheduling, and medical records with a focus on data security and performance optimization." data-ar="حل رعاية صحية شامل لإدارة المرضى وجدولة المواعيد والسجلات الطبية مع التركيز على أمان البيانات.">Comprehensive healthcare solution for patient management, appointment scheduling, and medical records with a focus on data security and performance optimization.</p>
+                    <div class="project-tags">
+                        <span class="tag">ASP.NET Core</span>
+                        <span class="tag">SQL Server</span>
+                        <span class="tag">Clean Architecture</span>
+                        <span class="tag">HIPAA Compliant</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Demo →</a>
+                        <a href="#" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 6 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=400&fit=crop" alt="Inventory Management">
+                    <div class="project-icon">📱</div>
+                </div>
+                <div class="project-content">
+                    <h3 data-en="Inventory Management API" data-ar="واجهة إدارة المخزون">Inventory Management API</h3>
+                    <p data-en="RESTful API for real-time inventory tracking and management with advanced search capabilities, reporting features, and third-party integration support." data-ar="واجهة برمجية RESTful لتتبع المخزون وإدارته في الوقت الفعلي مع إمكانيات بحث متقدمة وميزات تقارير.">RESTful API for real-time inventory tracking and management with advanced search capabilities, reporting features, and third-party integration support.</p>
+                    <div class="project-tags">
+                        <span class="tag">Web API</span>
+                        <span class="tag">Repository Pattern</span>
+                        <span class="tag">Unit Testing</span>
+                        <span class="tag">Swagger</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Demo →</a>
+                        <a href="#" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title">Services Offered</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">⚙️</div>
+                <h3>Backend Development</h3>
+                <p>Building robust and scalable backend systems using ASP.NET Core, implementing clean architecture patterns, and creating efficient database designs.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔌</div>
+                <h3>API Development</h3>
+                <p>Designing and developing RESTful APIs with comprehensive documentation, security implementation, and third-party service integration.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🗄️</div>
+                <h3>Database Design</h3>
+                <p>Creating optimized database schemas, writing efficient queries, and implementing data migration strategies for SQL Server databases.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>Full Stack Development</h3>
+                <p>End-to-end web application development combining modern frontend technologies with powerful .NET backend solutions.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🧪</div>
+                <h3>Code Review & Testing</h3>
+                <p>Comprehensive code reviews, unit testing implementation, and performance optimization to ensure code quality and reliability.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎯</div>
+                <h3>Technical Consulting</h3>
+                <p>Providing expert guidance on architecture decisions, technology stack selection, and best practices for .NET development.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Education & Achievements Section -->
+    <section id="education">
+        <h2 class="section-title">Education & Achievements</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>Bachelor's of Computer Science and Information Technology</h3>
+                <span class="date">Expected: July 2026</span>
+                <p><strong>The Egyptian E-learning University</strong> - Assiut, Egypt<br>
+                Focusing on advanced programming concepts, software engineering principles, and modern development practices.</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h3>Full Stack .NET Web Developer Trainee</h3>
+                <span class="date">2024</span>
+                <p><strong>Digital Egypt Initiative (DEPI)</strong><br>
+                Comprehensive training program covering full-stack .NET development, including ASP.NET Core, Entity Framework, and modern web technologies.</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h3>Introduction to Programming using C#</h3>
+                <span class="date">42 Hours</span>
+                <p><strong>Certification</strong><br>
+                Foundational certification covering C# programming fundamentals, object-oriented programming, and best practices.</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h3>ICPC EELU ASSIUT</h3>
+                <span class="date">Competitive Programming</span>
+                <p><strong>International Collegiate Programming Contest</strong><br>
+                Participated in competitive programming contests, developing strong problem-solving skills and algorithmic thinking.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-content">
+            <p style="color: var(--gray); font-size: 1.1rem; margin-bottom: 2rem;">
+                I'm currently available for freelance work and full-time opportunities. Whether you have a project in mind or just want to connect, feel free to reach out!
+            </p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i>📧</i>
+                    <h3 data-en="Email" data-ar="البريد الإلكتروني">Email</h3>
+                    <a href="mailto:heshammosad885@gmail.com">heshammosad885@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <i>📱</i>
+                    <h3 data-en="Phone" data-ar="الهاتف">Phone</h3>
+                    <a href="tel:01010235681">01010235681</a>
+                </div>
+                <div class="contact-item">
+                    <i style="color: #25D366;">💬</i>
+                    <h3 data-en="WhatsApp" data-ar="واتساب">WhatsApp</h3>
+                    <a href="https://wa.me/+201149496564" target="_blank">+201149496564</a>
+                </div>
+                <div class="contact-item">
+                    <i>📍</i>
+                    <h3 data-en="Location" data-ar="الموقع">Location</h3>
+                    <p style="color: var(--gray);">Assiut, Egypt</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://github.com/HeshamMosad3" class="social-link" target="_blank" title="GitHub">
+                    <span style="font-size: 1.5rem;">💻</span>
+                </a>
+                <a href="https://linkedin.com/in/hesham-mosad" class="social-link" target="_blank" title="LinkedIn">
+                    <span style="font-size: 1.5rem;">💼</span>
+                </a>
+                <a href="/cdn-cgi/l/email-protection#335b56405b525e5e5c4052570b0b0673545e525a5f1d505c5e" class="social-link" title="Email">
+                    <span style="font-size: 1.5rem;">✉️</span>
+                </a>
+            </div>
+            
+            <div class="cta-buttons" style="margin-top: 3rem;">
+                <a href="/cdn-cgi/l/email-protection#d9b1bcaab1b8b4b4b6aab8bde1e1ec99beb4b8b0b5f7bab6b4" class="btn">Hire Me</a>
+                <a href="#" class="btn btn-secondary" onclick="alert('Download functionality will be added with your actual resume file');">Download Resume</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Hesham Mosad Sayed. All rights reserved. Built with passion and code.</p>
+    </footer>
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Language Toggle
+        let currentLang = 'en';
+        const langToggle = document.getElementById('langToggle');
+        const langIcon = document.getElementById('langIcon');
+        
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            document.body.classList.toggle('rtl');
+            
+            // Update all elements with data-en and data-ar attributes
+            document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+            
+            // Update language icon
+            langIcon.textContent = currentLang === 'en' ? 'EN' : 'ع';
+            
+            // Save preference
+            localStorage.setItem('language', currentLang);
+        });
+        
+        // Load saved language preference
+        const savedLang = localStorage.getItem('language');
+        if (savedLang === 'ar') {
+            langToggle.click();
+        }
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            themeIcon.textContent = isLight ? '☀️' : '🌙';
+            
+            // Save preference
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
+        
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            themeToggle.click();
+        }
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add scroll animation for sections
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections except hero
+        document.querySelectorAll('section:not(.hero)').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+        
+        // Add active state to navigation
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Animate statistics on scroll
+        const stats = document.querySelectorAll('.stat-number');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const finalValue = target.textContent.replace('+', '').replace('%', '');
+                    const isPercentage = target.textContent.includes('%');
+                    const hasPlus = target.textContent.includes('+');
+                    
+                    animateValue(target, 0, parseInt(finalValue), 2000, isPercentage, hasPlus);
+                    statsObserver.unobserve(target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        stats.forEach(stat => statsObserver.observe(stat));
+        
+        function animateValue(element, start, end, duration, isPercentage, hasPlus) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.textContent = value + (isPercentage ? '%' : (hasPlus ? '+' : ''));
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+    </script>
