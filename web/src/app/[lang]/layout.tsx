@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   creator: "Hesham Mosad",
   formatDetection: { telephone: false },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
-  // TODO(owner): add the Google Search Console / Bing verification tokens.
-  // verification: { google: "...", other: { "msvalidate.01": "..." } },
+  // Google Search Console ownership verification.
+  verification: { google: "owAXDO5is_fv4eOhgTx9d5NOXjy6RpvjLT_SENe0-f4" },
 };
 
 export function generateStaticParams() {
