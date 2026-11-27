@@ -405,12 +405,9 @@ html[lang="en"] .statement { max-width: 24ch; line-height: 1.2; letter-spacing: 
 /* ==========================================================================
    Bento stats
    ========================================================================== */
-.bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
-.bento > :nth-child(1) { grid-column: span 5; }
-.bento > :nth-child(2) { grid-column: span 7; }
-.bento > :nth-child(3) { grid-column: span 7; }
-.bento > :nth-child(4) { grid-column: span 5; }
-.stat { display: flex; flex-direction: column; justify-content: space-between; min-height: 190px; gap: 2rem; overflow: hidden; }
+.bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.stat { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; min-height: 190px; gap: 2rem; overflow: hidden; }
+.stat > div { text-align: start; }
 .stat-num {
   font-family: var(--f-display); font-weight: 800; font-size: clamp(2.6rem, 5vw, 4.4rem); line-height: 1; letter-spacing: -0.04em;
   direction: ltr; unicode-bidi: isolate; display: inline-block;
@@ -441,6 +438,7 @@ html[lang="en"] .statement { max-width: 24ch; line-height: 1.2; letter-spacing: 
 .work-top { display: flex; justify-content: space-between; align-items: center; font-family: var(--f-mono); font-size: 0.78rem; color: var(--muted); }
 .work-title { font-size: clamp(1.35rem, 2vw, 1.9rem); line-height: 1.25; transition: color 0.4s; }
 .work-card:hover .work-title { color: var(--accent, var(--primary)); }
+.work-nums > div { display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem; }
 .work-nums { display: flex; flex-wrap: wrap; gap: 1.5rem 2.4rem; padding-top: 1.2rem; border-top: 1px solid var(--line); margin-top: auto; }
 .work-nums b { display: block; font-family: var(--f-display); font-size: 1.55rem; font-weight: 800; color: var(--accent, var(--primary)); direction: ltr; unicode-bidi: isolate; line-height: 1.1; }
 .work-nums span { font-size: 0.88rem; color: var(--muted); }

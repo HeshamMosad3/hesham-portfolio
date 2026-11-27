@@ -42,7 +42,7 @@ export default async function About({ params }: PageProps<"/[lang]/about">) {
             <PortraitStage
               name={lang === "ar" ? "هشام" : "Hesham"}
               alt={lang === "ar" ? "صورة شخصية لهشام مسعد" : "Portrait of Hesham Mosad"}
-              chips={["Full-Stack", ".NET · Laravel"]}
+              chips={["Full-Stack", ".NET · Laravel · Flutter"]}
               status={t.home.status}
               preload
             />
