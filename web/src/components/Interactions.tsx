@@ -32,7 +32,7 @@ export default function Interactions() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!fine) return;
 
-    const useCursor = !reduced;
+    const useCursor = false; // custom cursor disabled: use the normal system cursor
     if (useCursor) root.classList.add("has-cursor");
 
     let mx = -100, my = -100;   // pointer
