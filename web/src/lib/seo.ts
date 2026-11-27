@@ -17,7 +17,7 @@ export function buildMetadata(opts: { lang: Locale; path: string; title: string;
       languages: {
         ar: abs(localePath("ar", path)),
         en: abs(localePath("en", path)),
-        "x-default": abs(localePath("ar", path)),
+        "x-default": abs(localePath("en", path)),
       },
     },
     openGraph: {
